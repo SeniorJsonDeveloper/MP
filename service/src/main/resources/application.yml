@@ -1,0 +1,90 @@
+server:
+  port: 8080
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  application:
+    name: service
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5435/postgres
+    username: danilanovikov
+    password: demo2228
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  main:
+    allow-circular-references: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${app.keycloak.url}/realms/${app.keycloak.realm}/protocol/openid-connect/certs
+          issuer-uri: ${app.keycloak.url}/realms/${app.keycloak.realm}
+
+
+app:
+  redis:
+    enable: true
+
+  cache:
+   cacheType: redis
+   cache-names:
+      - itemFilter
+      - itemById
+      - items
+      - newItem
+      - itemByName
+      - deal
+      - dealById
+      - shopById
+      - shopFilter
+      - shops
+   caches:
+    itemFilter:
+        expiry:
+          20m
+    itemById:
+       expiry:
+          20m
+    items:
+        expiry:
+          20m
+    newItem:
+        expiry:
+          20m
+    deal:
+        expiry:
+          20m
+    dealById:
+        expiry:
+          20m
+    shopById:
+        expiry:
+          20m
+    shopFilter:
+        expiry:
+          20m
+    shops:
+        expiry:
+          20m
+    itemByName:
+      expiry:
+        15m
+  keycloak:
+    url: http://localhost:9080
+    token_endpoint: http://localhost:9080/realms/mp/protocol/openid-connect/token
+    realm: MP
+    client:
+      id: mp_client
+      secret: q1xFnewNMLIA8vMsS4zxlkHdEfkloLNF
+  integration:
+    user-app:
+      url: http://localhost:8081
+      users-url: ${app.integration.user-app.url}/api/v1/user
+
+
+
+

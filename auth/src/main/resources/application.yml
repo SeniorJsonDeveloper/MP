@@ -1,0 +1,28 @@
+server:
+  port: 8081
+spring:
+  datasource:
+    username: danilanovikov
+    password: demo2228
+    url: jdbc:postgresql://localhost:5435/postgres
+    driver-class-name: org.postgresql.Driver
+  application:
+    name: auth
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${app.keycloak.url}/realms/${app.keycloak.realm}/protocol/openid-connect/certs
+          issuer-uri: ${app.keycloak.url}/realms/${app.keycloak.realm}
+
+app:
+  keycloak:
+    url: http://localhost:9080
+    realm: MP
+    client:
+      id: mp_keycloak_client
+      secret: NMHVrlUuohkLqP2dmk7StRaY9Uc4L6oq
